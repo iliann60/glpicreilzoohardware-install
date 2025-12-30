@@ -7,20 +7,20 @@
 # =================================================================
 
 # 1. Variables de configuration
-SERVER_URL="http://192.168.1.110/market/glpi-agent/" # URL corrigée pour pointer vers l'endpoint agent
+SERVER_URL="http://192.168.1.110/market/glpi-agent/"
 LOG_FILE="/var/log/glpi_install.log"
 
 # Couleurs pour le terminal
 GREEN='\033[0;32m'
 RED='\033[0;31m'
-NC='\033[0m' # No Color
+NC='\033[0m'
 
-echo -e "${GREEN}>>> Début de l'installation de l'agent GLPI pour EcoPerf...${NC}"
+echo -e "${GREEN}>>> Début de l'installation de l'agent GLPI pour CREILZOOHARDWARE...${NC}"
 
 # 2. Vérification des droits root
-if [ "$EUID" -ne 0 ]; then 
-  echo -e "${RED}[ERREUR] Veuillez lancer ce script avec sudo.${NC}"
-  exit 1
+if [ "$EUID" -ne 0 ]; then
+    echo -e "${RED}[ERREUR] Veuillez lancer ce script avec sudo.${NC}"
+    exit 1
 fi
 
 # 3. Mise à jour et installation des dépendances
@@ -39,9 +39,7 @@ echo -e "${GREEN}[2/4] Configuration du serveur GLPI (${SERVER_URL})...${NC}"
 CONFIG_FILE="/etc/glpi-agent/agent.cfg"
 
 if [ -f "$CONFIG_FILE" ]; then
-    # On commente l'ancienne ligne server et on ajoute la nouvelle
     sed -i "s|^server=.*|#server=|" $CONFIG_FILE
-    # On s'assure que la ligne server est bien configurée
     echo "server=$SERVER_URL" >> $CONFIG_FILE
     echo -e "${GREEN}✔ Fichier de configuration mis à jour.${NC}"
 else
@@ -62,7 +60,7 @@ glpi-agent --force >> $LOG_FILE 2>&1
 if [ $? -eq 0 ]; then
     echo -e "${GREEN}✔ Inventaire envoyé !${NC}"
     echo -e "${GREEN}>>> Installation terminée avec succès.${NC}"
-    echo "Votre machine devrait apparaître dans GLPI : http://192.168.1.110/ (Parc > Ordinateurs)"
+    echo "Machine visible sur : http://192.168.1.110/ (Parc > Ordinateurs)"
 else
-    echo -e "${RED}✘ L'envoi de l'inventaire a échoué. Vérifiez la connexion réseau avec le serveur.${NC}"
+    echo -e "${RED}✘ L'envoi de l'inventaire a échoué. Vérifiez la connexion avec le serveur.${NC}"
 fi
