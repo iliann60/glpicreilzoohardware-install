@@ -2,6 +2,11 @@
 
 Télécharger l'installeur depuis le dépôt GitHub officiel. (https://github.com/glpi-project/glpi-agent/releases) --> glpi-agent-1.15-linux-installer.pl
 
+ou
+
+wget https://github.com/glpi-project/glpi-agent/releases/download/1.15/glpi-agent-1.15-linux-installer.pl
+
+
 Ouvrir un terminal dans le dossier de téléchargement. (su -)
 
 Lancer l'installation avec la commande suivante : sudo perl glpi-agent-1.15-linux-installer.pl --server="http://192.168.1.110/front/inventory.php" --install
